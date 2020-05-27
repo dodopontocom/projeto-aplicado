@@ -17,7 +17,7 @@ resource "google_compute_subnetwork" "subnet" {
 resource "google_compute_firewall" "firewall" {
     name        = var.firewall_name
     network     = google_compute_network.vpc.name
-    depends_on  = ["google_compute_subnet.subnet"]
+    depends_on  = ["google_compute_subnetwork.subnet"]
 
     allow {
         protocol    = "icmp"
