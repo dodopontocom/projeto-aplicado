@@ -9,7 +9,7 @@ resource "google_compute_subnetwork" "subnet" {
     name            = var.subnet_name
     ip_cidr_range   = var.subnet_cidr
     network         = var.vpc_name
-    depends_on      = google_compute_network.vpc
+    depends_on      = ["google_compute_network.vpc"]
     region          = var.region
 }
 
@@ -17,8 +17,8 @@ resource "google_compute_subnetwork" "subnet" {
 resource "google_compute_firewall" "firewall" {
     name        = var.firewall_name
     network     = google_compute_network.vpc.name
-    depends_on  = google_compute_subnet.subnet
-    
+    depends_on  = ["google_compute_subnet.subnet"]
+
     allow {
         protocol    = "icmp"
     }
