@@ -1,0 +1,25 @@
+version: 2.1
+
+jobs:
+  GCP_Provisioning:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: "Provisionar infraestrutura com terraform - Part.1 - Criar VPC"
+          command: |
+          
+            source ./.circleci/cicd-definitions.sh
+            echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
+            cd terraform
+            terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
+            terraform plan
+            terraform apply -auto-approve
+          
+workflows:
+  version: 2.1
+  
+  gcloud_workflow:
+    jobs:
+      - GCP_Provisioning
