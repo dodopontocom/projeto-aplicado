@@ -2,6 +2,7 @@ version: 2.1
 
 jobs:
   GCP_Provisioning:
+    working_directory: /root/app
     docker:
       - image: hashicorp/terraform:light
     steps:
