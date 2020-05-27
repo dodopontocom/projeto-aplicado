@@ -23,4 +23,8 @@ workflows:
   
   gcloud_workflow:
     jobs:
-      - GCP_Provisioning
+      - GCP_Provisioning:
+        filters:
+          branches:
+            only:
+              - master
