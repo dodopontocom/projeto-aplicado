@@ -17,3 +17,7 @@ export TF_VAR_subnet_name="${GCLOUD_PROJECT_ID}-subnet"
 export TF_VAR_firewall_name="${GCLOUD_PROJECT_ID}-firewall"
 export TF_VAR_subnet_cidr="10.10.0.0/24"
 export GOOGLE_APPLICATION_CREDENTIALS=${TF_VAR_key}
+export TF_VAR_machine_type="n1-standard-4"
+export TF_VAR_zone="${GCLOUD_PROJECT_REGION}-a"
+export TF_VAR_compute_instance_environment="dev"
+export TF_VAR_ubuntu_image="ubuntu-os-cloud/ubuntu-1804-lts"

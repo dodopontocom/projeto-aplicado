@@ -9,3 +9,8 @@ variable "service_list" {
 variable "subnet_name" { }
 variable "subnet_cidr" { }
 variable "firewall_name" { }
+variable "machine_type" { }
+variable "zone" { }
+variable "compute_instance_environment" { }
+variable "ubuntu_image" { }
+variable "ssd_name" { }

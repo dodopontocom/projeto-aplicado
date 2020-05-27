@@ -28,4 +28,5 @@ resource "google_compute_firewall" "firewall" {
     }
 
     source_ranges   = ["0.0.0.0/0"]
+    //target_tags   = ["http-server", "https-server"]
 }
