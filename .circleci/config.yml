@@ -51,6 +51,8 @@ jobs:
             for var in "${vars[@]}"; do  
               var=$(echo "${var}" | awk -F '=' '{print $1}')
               new_var=$(echo "${var}" | cut -d'_' -f3-)
+              echo ${new_var}
+              echo ${!var}
               echo "export ${new_var}=${!var}" >> $BASH_ENV
             done
             
