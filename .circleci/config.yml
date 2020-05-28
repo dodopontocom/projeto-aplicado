@@ -24,7 +24,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Provisionar infraestrutura com terraform - Part.1 - Criar VPC"
+          name: "Provisionar infraestrutura PROD"
           command: |
           
             source ./.circleci/cicd-definitions.sh
@@ -41,7 +41,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Infra Testes"
+          name: "Provisionar infraestrutura INT"
           command: |
           
             source ./.circleci/cicd-definitions.sh
@@ -51,7 +51,7 @@ jobs:
             for var in "${vars[@]}"; do  
               var=$(echo "${var}" | awk -F '=' '{print $1}')
               new_var=$(echo "${var}" | cut -d'_' -f3-)
-              export "${new_var}"="${!var}"            
+              echo "export ${new_var}=${!var}" >> $BASH_ENV
             done
             
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
@@ -67,7 +67,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Infra Testes"
+          name: "Provisionar infraestrutura DEV"
           command: |
           
             source ./.circleci/cicd-definitions.sh
@@ -77,7 +77,7 @@ jobs:
             for var in "${vars[@]}"; do  
               var=$(echo "${var}" | awk -F '=' '{print $1}')
               new_var=$(echo "${var}" | cut -d'_' -f3-)
-              export "${new_var}"="${!var}"            
+              echo "export ${new_var}=${!var}" >> $BASH_ENV
             done
             
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
