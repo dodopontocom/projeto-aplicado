@@ -52,7 +52,7 @@ jobs:
               var=$(echo "${var}" | awk -F '=' '{print $1}')
               new_var=$(echo "${var}" | cut -d'_' -f3-)
               unset ${new_var}
-              export "${new_var}"="${!var}"
+              export "${new_var}"=\"${!var}\"
             done
             export
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
