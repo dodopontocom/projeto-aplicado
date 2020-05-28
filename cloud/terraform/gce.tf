@@ -22,7 +22,9 @@ resource "google_compute_instance" "instance" {
   }
   
   allow_stopping_for_update = true
-  preemptible = true
+  scheduling {
+    preemptible = true
+  }
   
   network_interface {
     subnetwork = var.subnet_name
