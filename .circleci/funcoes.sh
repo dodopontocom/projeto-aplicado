@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-helper.ambiente_vars() {
+function ambiente_vars() {
   local env=$1
   
   vars=($(printenv | egrep -o "${env}_CI_.*=" | awk -F= '{print $1}'))

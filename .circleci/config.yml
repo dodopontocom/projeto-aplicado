@@ -41,7 +41,7 @@ jobs:
             source ./.circleci/funcoes.sh
             #Sobescrever variáveis referente ao ambiente - sabendo que Integracao = INT
             
-            helper.ambiente_vars "INT"
+            ambiente_vars "INT"
             
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
