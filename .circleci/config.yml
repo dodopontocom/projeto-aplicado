@@ -10,6 +10,12 @@ ambiente-integracao: &ambiente-integracao
       branches:
         only:
           - develop
+ambiente-desenvolvimento: &ambiente-desenvolvimento
+    filters:
+      branches:
+        ignore:
+          - master
+          - develop
 jobs:
   GCP_Provisioning:
     working_directory: /root/app
@@ -27,6 +33,7 @@ jobs:
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
             terraform apply -auto-approve
+
   GCP_Provisioning_Integracao:
     working_directory: /root/app
     docker:
@@ -38,7 +45,7 @@ jobs:
           command: |
           
             source ./.circleci/cicd-definitions.sh
-            #Sobescrever variáveis referente ao ambiente - sabendo que Integracao = INT
+            #Sobrescrever variáveis referente ao ambiente - sabendo que Integracao = INT
             
             vars=($(printenv | egrep -o "INT_CI_.*=" | awk -F= '{print $1}'))
             for var in "${vars[@]}"; do  
@@ -51,8 +58,34 @@ jobs:
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
+            terraform apply -auto-approve
             
-
+  GCP_Provisioning_Integracao:
+    working_directory: /root/app
+    docker:
+      - image: hashicorp/terraform:full
+    steps:
+      - checkout
+      - run:
+          name: "Infra Testes"
+          command: |
+          
+            source ./.circleci/cicd-definitions.sh
+            #Sobrescrever variáveis referente ao ambiente - sabendo que Desenvolvimento = DEV
+            
+            vars=($(printenv | egrep -o "DEV_CI_.*=" | awk -F= '{print $1}'))
+            for var in "${vars[@]}"; do  
+              var=$(echo "${var}" | awk -F '=' '{print $1}')
+              new_var=$(echo "${var}" | cut -d'_' -f3-)
+              export "${new_var}"="${!var}"            
+            done
+            
+            echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
+            cd ./cloud/terraform
+            terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
+            terraform plan
+            terraform apply -auto-approve
+          
 workflows:
   version: 2.1
   
@@ -62,3 +95,5 @@ workflows:
           <<: *ambiente-producao
       - GCP_Provisioning_Integracao:
           <<: *ambiente-integracao
+      - GCP_Provisioning_Desenvolvimento:
+          <<: *ambiente-desenvolvimento
