@@ -40,7 +40,8 @@ jobs:
             source ./.circleci/cicd-definitions.sh
             #Sobescrever variáveis referente ao ambiente - sabendo que Integracao = INT
             
-            for var in "$(printenv | egrep -o "INT_CI_.*=" | awk -F= '{print $1}')"; do  
+            vars=($(printenv | egrep -o "INT_CI_.*=" | awk -F= '{print $1}'))
+            for var in "${vars[@]}"; do  
               var=$(echo "${var}" | awk -F '=' '{print $1}')
               new_var=$(echo "${var}" | cut -d'_' -f3-)
               export "${new_var}"="${!var}"            
