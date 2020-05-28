@@ -23,6 +23,7 @@ resource "google_compute_instance" "instance" {
   
   allow_stopping_for_update = true
   scheduling {
+    automatic_restart   = false
     preemptible = true
   }
   
