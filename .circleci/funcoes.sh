@@ -3,7 +3,7 @@
 function ambiente_vars() {
   local env=$1
   
-  vars=($(printenv | egrep -o "${env}_CI_.*=" | awk -F= '{print $1}'))
+  #vars=($(printenv | egrep -o "${env}_CI_.*=" | awk -F= '{print $1}'))
 
   for var in "$(printenv | egrep -o "${env}_CI_.*=" | awk -F= '{print $1}')"; do  
     var=$(echo "${var}" | awk -F '=' '{print $1}')
