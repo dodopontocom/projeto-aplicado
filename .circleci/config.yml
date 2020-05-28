@@ -1,15 +1,15 @@
 version: 2.1
 
-branch-filter: &branch-filter
+ambiente-producao: &ambiente-producao
     filters:
       branches:
         only:
           - master
-other-branch-filter: &other-branch-filter
+ambiente-integracao: &ambiente-integracao
     filters:
       branches:
-        ignore:
-          - master
+        only:
+          - develop
 jobs:
   GCP_Provisioning:
     working_directory: /root/app
@@ -27,7 +27,7 @@ jobs:
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
             terraform apply -auto-approve
-  GCP_Provisioning_Testing:
+  GCP_Provisioning_Integracao:
     working_directory: /root/app
     docker:
       - image: hashicorp/terraform:light
@@ -38,12 +38,19 @@ jobs:
           command: |
           
             source ./.circleci/cicd-definitions.sh
+            #Sobescrever variáveis referente ao ambiente - sabendo que Integracao = INT
+            vars=($(printenv | egrep -o "INT_CI_.*=" | awk -F= '{print $1}'))
+            for var in "${vars[@]}"; do
+              var=$(echo "${var}" | awk -F '=' '{print $1}')
+              new_var=$(echo "${var}" | cut -d'_' -f3-)
+              export "{new_var}"="${!var}"
+            done
+            printenv
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
-            terraform workspace select staging
             terraform plan
-            terraform apply -auto-approve
+            
 
 workflows:
   version: 2.1
@@ -51,6 +58,6 @@ workflows:
   gcloud_workflow:
     jobs:
       - GCP_Provisioning:
-          <<: *branch-filter
-      - GCP_Provisioning_Testing:
-          <<: *other-branch-filter
+          <<: *ambiente-producao
+      - GCP_Provisioning_Integracao:
+          <<: *ambiente-integracao
