@@ -43,7 +43,7 @@ jobs:
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform workspace select staging
             terraform plan
-            #terraform apply -auto-approve
+            terraform apply -auto-approve
 
 workflows:
   version: 2.1
