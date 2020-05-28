@@ -30,7 +30,7 @@ jobs:
   GCP_Provisioning_Integracao:
     working_directory: /root/app
     docker:
-      - image: hashicorp/terraform:light
+      - image: hashicorp/terraform:full
     steps:
       - checkout
       - run:
