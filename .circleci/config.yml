@@ -1,5 +1,11 @@
 version: 2.1
 
+branch-filter: &branch-filter
+    filters:
+      branches:
+        only:
+          - master
+
 jobs:
   GCP_Provisioning:
     working_directory: /root/app
@@ -24,7 +30,5 @@ workflows:
   gcloud_workflow:
     jobs:
       - GCP_Provisioning:
-        filters:
-          branches:
-            only:
-              - master
+          <<: *branch-filter
+        
