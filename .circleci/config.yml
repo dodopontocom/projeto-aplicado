@@ -39,8 +39,10 @@ jobs:
           
             source ./.circleci/cicd-definitions.sh
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
-            terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}" ./cloud/terraform
-            terraform plan ./cloud/terraform
+            cd ./cloud/terraform
+            terraform workspace list
+            terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
+            terraform plan
             #terraform apply -auto-approve
 
 workflows:
