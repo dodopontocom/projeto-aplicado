@@ -59,8 +59,8 @@ jobs:
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
             terraform apply -auto-approve
-            
-  GCP_Provisioning_Integracao:
+
+  GCP_Provisioning_Desenvolvimento:
     working_directory: /root/app
     docker:
       - image: hashicorp/terraform:full
