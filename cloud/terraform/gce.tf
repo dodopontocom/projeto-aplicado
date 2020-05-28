@@ -6,7 +6,7 @@ resource "google_compute_address" "static_ip_address" {
   name = "static-ip-address"
 }
 
-resource "google_compute_instance" "gcp_lab_instance" {
+resource "google_compute_instance" "instance" {
   name         = "vm-tf-${random_id.instance_id.hex}"
   machine_type = var.machine_type
   zone         = var.zone
@@ -24,7 +24,7 @@ resource "google_compute_instance" "gcp_lab_instance" {
   allow_stopping_for_update = true
   
   network_interface {
-    network = var.vpc_name
+    network = google_compute_network.vpc.name
 
     access_config {
       // Include this section to give the VM an external ip address
