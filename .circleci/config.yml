@@ -55,7 +55,7 @@ jobs:
               echo ${!var}
               echo "export ${new_var}=${!var}" >> $BASH_ENV
             done
-            
+            export
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
