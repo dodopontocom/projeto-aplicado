@@ -2,6 +2,10 @@ resource "random_id" "instance_id" {
   byte_length = 3
 }
 
+resource "google_compute_address" "static_ip_address" {
+  name = "static-ip-address"
+}
+
 resource "google_compute_instance" "gcp_lab_instance" {
   name         = "vm-tf-${random_id.instance_id.hex}"
   machine_type = var.machine_type
