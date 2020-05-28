@@ -22,17 +22,17 @@ resource "google_compute_instance" "instance" {
   }
   
   allow_stopping_for_update = true
+  preemptible = true
   
   network_interface {
-    //network = var.vpc_name
     subnetwork = var.subnet_name
 
     access_config {
-      // Include this section to give the VM an external ip address
+      // Adicionar um IP externo para a VM
       nat_ip = google_compute_address.static_ip_address.address
     }
   }
 
-  // Apply the firewall rule to allow external IPs to access this instance
+  // Permitir que IPs externos a network ecessem a VM
   tags = ["http-server", "https-server"]
 }
