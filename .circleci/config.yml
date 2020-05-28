@@ -16,7 +16,7 @@ jobs:
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
-            #terraform apply -auto-approve
+            terraform apply -auto-approve
           
 workflows:
   version: 2.1
