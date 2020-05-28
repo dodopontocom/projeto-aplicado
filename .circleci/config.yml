@@ -40,8 +40,8 @@ jobs:
             source ./.circleci/cicd-definitions.sh
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
-            terraform workspace select staging
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
+            terraform workspace select staging
             terraform plan
             #terraform apply -auto-approve
 
