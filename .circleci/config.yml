@@ -30,7 +30,7 @@ jobs:
   GCP_Provisioning_Integracao:
     working_directory: /root/app
     docker:
-      - image: hashicorp/terraform:full
+      - image: hashicorp/terraform
     steps:
       - checkout
       - run:
@@ -38,10 +38,13 @@ jobs:
           command: |
           
             source ./.circleci/cicd-definitions.sh
-            source ./.circleci/funcoes.sh
             #Sobescrever variáveis referente ao ambiente - sabendo que Integracao = INT
             
-            ambiente_vars "INT"
+            for var in "$(printenv | egrep -o "INT_CI_.*=" | awk -F= '{print $1}')"; do  
+              var=$(echo "${var}" | awk -F '=' '{print $1}')
+              new_var=$(echo "${var}" | cut -d'_' -f3-)
+              export "${new_var}"="${!var}"            
+            done
             
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
