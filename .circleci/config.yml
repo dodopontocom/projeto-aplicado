@@ -39,13 +39,17 @@ jobs:
           
             source ./.circleci/cicd-definitions.sh
             #Sobescrever variáveis referente ao ambiente - sabendo que Integracao = INT
+            printenv
             vars=($(printenv | egrep -o "INT_CI_.*=" | awk -F= '{print $1}'))
+            
             for var in "${vars[@]}"; do
               var=$(echo "${var}" | awk -F '=' '{print $1}')
               new_var=$(echo "${var}" | cut -d'_' -f3-)
-              export "{new_var}"="${!var}"
+              export "{new_var}"="${!var}"            
             done
+            
             printenv
+            
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
