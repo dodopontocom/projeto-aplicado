@@ -5,7 +5,11 @@ branch-filter: &branch-filter
       branches:
         only:
           - master
-
+other-branch-filter: &other-branch-filter
+    filters:
+      branches:
+        ignore:
+          - master
 jobs:
   GCP_Provisioning:
     working_directory: /root/app
@@ -23,7 +27,22 @@ jobs:
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
             terraform apply -auto-approve
+  GCP_Provisioning_Testing:
+    working_directory: /root/app
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: "Infra Testes"
+          command: |
           
+            source ./.circleci/cicd-definitions.sh
+            echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
+            terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}" ./cloud/terraform
+            terraform plan ./cloud/terraform
+            #terraform apply -auto-approve
+
 workflows:
   version: 2.1
   
@@ -31,4 +50,5 @@ workflows:
     jobs:
       - GCP_Provisioning:
           <<: *branch-filter
-        
+      - GCP_Provisioning_Testing:
+          <<: *other-branch-filter
