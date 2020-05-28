@@ -24,7 +24,8 @@ resource "google_compute_instance" "instance" {
   allow_stopping_for_update = true
   
   network_interface {
-    //network = google_compute_network.vpc.name
+    //network = var.vpc_name
+    subnetwork = var.subnet_name
 
     access_config {
       // Include this section to give the VM an external ip address
