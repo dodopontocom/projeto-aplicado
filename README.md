@@ -39,3 +39,9 @@ As seguintes "flags" podem ser adicionadas (entre colchetes [ ]) em qualquer lug
 
 `Nota¹:` Caso nenhuma das flags sejam usadas, a flag padrão `[wip]` é acionada  
 `Nota²:` Até duas flags podem sem combinadas por commit: exemplo.: `[skip-docker][tf-apply] provisionar infra mas pular passo de atualizar a imagem docker`  
+
+## Estrutura das Branches
+
+Branches protegidas (não são permitidos commits diretos e necessitam algumas verificações)  
+`master`  
+`develop`
