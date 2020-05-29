@@ -44,7 +44,7 @@ jobs:
           name: "Provisionar infraestrutura INT"
           command: |
           
-            source ./.circleci/cicd-definitions.sh
+            
             #Sobrescrever variáveis referente ao ambiente - sabendo que Integracao = INT
             
             vars=($(printenv | egrep -o "INT_CI_.*=" | awk -F= '{print $1}'))
@@ -52,8 +52,10 @@ jobs:
               var=$(echo "${var}" | awk -F '=' '{print $1}')
               new_var=$(echo "${var}" | cut -d'_' -f3-)
               unset ${new_var}
-              export "${new_var}"=\""${!var}"\"
+              export "${new_var}"="${!var}"
             done
+            export
+            source ./.circleci/cicd-definitions.sh
             export
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
