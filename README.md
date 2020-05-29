@@ -46,3 +46,6 @@ As seguintes "flags" podem ser adicionadas (entre colchetes [ ]) em qualquer lug
 Branches protegidas (não são permitidos commits diretos e necessitam algumas verificações)  
 `master`  
 `develop`
+
+Verificações devem ser cumpridas para que merges possam ser aceitos  
+![verificações](./docs/imgs/verificacoes.png)
