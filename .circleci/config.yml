@@ -33,10 +33,15 @@ jobs:
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
-            terraform plan
-            if [[ "$(git log --format=oneline -n 1 ${CIRCLE_SHA1} | grep -E "\[tf-destroy\]")" ]]; then
+            
+            commit_message="$(git log --format=oneline -n 1 ${CIRCLE_SHA1})"
+            if [[ "$(echo ${commit_message} | grep -E "\[tf-destroy\]")" ]]; then
+              terraform plan
               terraform destroy -auto-approve
-            else
+            elif [[ "$(echo ${commit_message} | grep -E "\[tf-plan\]")" ]]; then
+              terraform plan
+            elif [[ "$(echo ${commit_message} | grep -E "\[tf-apply\]")" ]]; then
+              terraform plan
               terraform apply -auto-approve
             fi
 
@@ -55,10 +60,15 @@ jobs:
             echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
-            terraform plan
-            if [[ "$(git log --format=oneline -n 1 ${CIRCLE_SHA1} | grep -E "\[tf-destroy\]")" ]]; then
+            
+            commit_message="$(git log --format=oneline -n 1 ${CIRCLE_SHA1})"
+            if [[ "$(echo ${commit_message} | grep -E "\[tf-destroy\]")" ]]; then
+              terraform plan
               terraform destroy -auto-approve
-            else
+            elif [[ "$(echo ${commit_message} | grep -E "\[tf-plan\]")" ]]; then
+              terraform plan
+            elif [[ "$(echo ${commit_message} | grep -E "\[tf-apply\]")" ]]; then
+              terraform plan
               terraform apply -auto-approve
             fi
 
@@ -77,10 +87,15 @@ jobs:
             echo ${DEV_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
-            terraform plan
-            if [[ "$(git log --format=oneline -n 1 ${CIRCLE_SHA1} | grep -E "\[tf-destroy\]")" ]]; then
+            
+            commit_message="$(git log --format=oneline -n 1 ${CIRCLE_SHA1})"
+            if [[ "$(echo ${commit_message} | grep -E "\[tf-destroy\]")" ]]; then
+              terraform plan
               terraform destroy -auto-approve
-            else
+            elif [[ "$(echo ${commit_message} | grep -E "\[tf-plan\]")" ]]; then
+              terraform plan
+            elif [[ "$(echo ${commit_message} | grep -E "\[tf-apply\]")" ]]; then
+              terraform plan
               terraform apply -auto-approve
             fi
           
