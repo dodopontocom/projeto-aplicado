@@ -35,7 +35,13 @@ As seguintes "flags" podem ser adicionadas (entre colchetes [ ]) em qualquer lug
 - `[tf-apply]` - Constroi a infraestrutura da Nuvem (provisiona os recursos listados na pasta do terraform)  
 - `[tf-destroy]` - Desconstroi a infraestrutura da Nuvem (ótimo para desligar todos os recursos e economizar)  
 - `[skip-docker]` - Faz com que execute o CircleCi mas pule a opção de atualizar a imagem docker da aplicação  
-- `[wip]` - (Working in progress) Executa apenas o passo de construir a aplicação (essa opção faz com que a aplicação rode apenas no ambiente pre estabelecido no CircleCi, não executa nenhuma ação na Nuvem)
+- `[wip]` - (Working in progress) Executa apenas o passo de construir a aplicação (aqui, subintende que os recursos na Nuvem já estejam criados)
 
 `Nota¹:` Caso nenhuma das flags sejam usadas, a flag padrão `[wip]` é acionada  
 `Nota²:` Até duas flags podem sem combinadas por commit: exemplo.: `[skip-docker][tf-apply] provisionar infra mas pular passo de atualizar a imagem docker`  
+
+## Estrutura das Branches
+
+Branches protegidas (não são permitidos commits diretos e necessitam algumas verificações)  
+`master`  
+`develop`
