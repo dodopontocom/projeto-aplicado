@@ -27,7 +27,8 @@ jobs:
           name: "Provisionar infraestrutura PROD"
           command: |
           
-            source ./.circleci/cicd-definitions.sh
+            source ./.circleci/ambientes/prod.sh
+            
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
@@ -44,19 +45,8 @@ jobs:
           name: "Provisionar infraestrutura INT"
           command: |
           
-            source ./.circleci/cicd-definitions.sh
-            export
-            #Sobrescrever variáveis referente ao ambiente - sabendo que Integracao = INT
+            source ./.circleci/ambientes/int.sh
             
-            vars=($(printenv | egrep -o "INT_CI_.*=" | awk -F= '{print $1}'))
-            for var in "${vars[@]}"; do  
-              var=$(echo "${var}" | awk -F '=' '{print $1}')
-              new_var=$(echo "${var}" | cut -d'_' -f3-)
-              unset ${new_var}
-              export "${new_var}"="${!var}" >> $BASH_ENV
-            done
-            source $BASH_ENV
-            export
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
@@ -73,15 +63,7 @@ jobs:
           name: "Provisionar infraestrutura DEV"
           command: |
           
-            source ./.circleci/cicd-definitions.sh
-            #Sobrescrever variáveis referente ao ambiente - sabendo que Desenvolvimento = DEV
-            
-            vars=($(printenv | egrep -o "DEV_CI_.*=" | awk -F= '{print $1}'))
-            for var in "${vars[@]}"; do  
-              var=$(echo "${var}" | awk -F '=' '{print $1}')
-              new_var=$(echo "${var}" | cut -d'_' -f3-)
-              echo "export ${new_var}=${!var}" >> $BASH_ENV
-            done
+            source ./.circleci/ambientes/dev.sh
             
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
