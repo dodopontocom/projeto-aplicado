@@ -32,6 +32,7 @@ app
 
 As seguintes "flags" podem ser adicionadas (entre colchetes [ ]) em qualquer lugar da mensagem do commit  
 - `[skip ci]` - Faz com que o CircleCi não execute  
+- `[tf-plan]` - Executa o CircleCi apenas para verificação se o terraform está ok  
 - `[tf-apply]` - Constroi a infraestrutura da Nuvem (provisiona os recursos listados na pasta do terraform)  
 - `[tf-destroy]` - Desconstroi a infraestrutura da Nuvem (ótimo para desligar todos os recursos e economizar)  
 - `[skip-docker]` - Faz com que execute o CircleCi mas pule a opção de atualizar a imagem docker da aplicação  
