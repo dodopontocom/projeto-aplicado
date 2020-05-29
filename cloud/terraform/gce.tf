@@ -9,6 +9,7 @@ resource "google_compute_address" "static_ip_address" {
 resource "google_compute_instance" "instance" {
   name         = "vm-tf-${random_id.instance_id.hex}"
   machine_type = var.machine_type
+  depends_on  = [google_compute_subnetwork.subnet]
   zone         = var.zone
 
   labels       = {
