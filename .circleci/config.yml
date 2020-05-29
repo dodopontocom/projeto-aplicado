@@ -16,6 +16,7 @@ ambiente-desenvolvimento: &ambiente-desenvolvimento
         ignore:
           - master
           - develop
+
 jobs:
   GCP_Provisioning:
     working_directory: /root/app
@@ -47,7 +48,7 @@ jobs:
           
             source ./.circleci/ambientes/int.sh
             
-            echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
+            echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
@@ -65,7 +66,7 @@ jobs:
           
             source ./.circleci/ambientes/dev.sh
             
-            echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
+            echo ${DEV_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
