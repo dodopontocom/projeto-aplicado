@@ -1,6 +1,10 @@
 # projeto-aplicado
 Repositório para manter o código referente ao meu projeto aplicado
 
+# Badge para avisos do status das builds no CircleCi
+
+[![CircleCI](https://circleci.com/gh/dodopontocom/projeto-aplicado/tree/develop.svg?style=svg)](https://circleci.com/gh/dodopontocom/projeto-aplicado/tree/develop)
+
 # Estrutura dos diretórios
 
 ```
