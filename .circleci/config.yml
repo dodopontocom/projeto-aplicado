@@ -1,10 +1,21 @@
 version: 2.1
 
-branch-filter: &branch-filter
+ambiente-producao: &ambiente-producao
     filters:
       branches:
         only:
           - master
+ambiente-integracao: &ambiente-integracao
+    filters:
+      branches:
+        only:
+          - develop
+ambiente-desenvolvimento: &ambiente-desenvolvimento
+    filters:
+      branches:
+        ignore:
+          - master
+          - develop
 
 jobs:
   GCP_Provisioning:
@@ -14,15 +25,64 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Provisionar infraestrutura com terraform - Part.1 - Criar VPC"
+          name: "Provisionar infraestrutura PROD"
           command: |
           
-            source ./.circleci/cicd-definitions.sh
+            source ./.circleci/ambientes/prod.sh
+            
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
-            terraform apply -auto-approve
+            if [[ "$(git log --format=oneline -n 1 ${CIRCLE_SHA1} | grep -E "\[tf-destroy\]")" ]]; then
+              terraform destroy -auto-approve
+            else
+              terraform apply -auto-approve
+            fi
+
+  GCP_Provisioning_Integracao:
+    working_directory: /root/app
+    docker:
+      - image: hashicorp/terraform:full
+    steps:
+      - checkout
+      - run:
+          name: "Provisionar infraestrutura INT"
+          command: |
+          
+            source ./.circleci/ambientes/int.sh
+            
+            echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
+            cd ./cloud/terraform
+            terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
+            terraform plan
+            if [[ "$(git log --format=oneline -n 1 ${CIRCLE_SHA1} | grep -E "\[tf-destroy\]")" ]]; then
+              terraform destroy -auto-approve
+            else
+              terraform apply -auto-approve
+            fi
+
+  GCP_Provisioning_Desenvolvimento:
+    working_directory: /root/app
+    docker:
+      - image: hashicorp/terraform:full
+    steps:
+      - checkout
+      - run:
+          name: "Provisionar infraestrutura DEV"
+          command: |
+          
+            source ./.circleci/ambientes/dev.sh
+            
+            echo ${DEV_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
+            cd ./cloud/terraform
+            terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
+            terraform plan
+            if [[ "$(git log --format=oneline -n 1 ${CIRCLE_SHA1} | grep -E "\[tf-destroy\]")" ]]; then
+              terraform destroy -auto-approve
+            else
+              terraform apply -auto-approve
+            fi
           
 workflows:
   version: 2.1
@@ -30,5 +90,8 @@ workflows:
   gcloud_workflow:
     jobs:
       - GCP_Provisioning:
-          <<: *branch-filter
-        
+          <<: *ambiente-producao
+      - GCP_Provisioning_Integracao:
+          <<: *ambiente-integracao
+      - GCP_Provisioning_Desenvolvimento:
+          <<: *ambiente-desenvolvimento

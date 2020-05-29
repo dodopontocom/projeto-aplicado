@@ -2,6 +2,7 @@
 # GCLOUD VARIAVEIS GLOBAIS
 export GCLOUD_PROJECT_ID="pa-igti"
 export GCLOUD_JSON_KEY_PATH="${CIRCLE_WORKING_DIRECTORY}/cloud/credentials/credential.json"
+export GOOGLE_APPLICATION_CREDENTIALS="${GCLOUD_JSON_KEY_PATH}"
 export GCLOUD_PROJECT_BUCKET_NAME="terraform-backend-bucket"
 export GCLOUD_PROJECT_BUCKET_PREFIX="terraform"
 export GCLOUD_PROJECT_REGION="us-central1"
@@ -12,9 +13,6 @@ export TF_VAR_tf_backend_bucket_name="${GCLOUD_PROJECT_BUCKET_NAME}"
 export TF_VAR_project_id="${GCLOUD_PROJECT_ID}"
 export TF_VAR_region="${GCLOUD_PROJECT_REGION}"
 export TF_VAR_key="${GCLOUD_JSON_KEY_PATH}"
-
-export GOOGLE_APPLICATION_CREDENTIALS=${TF_VAR_key}
-
 export TF_VAR_vpc_name="${GCLOUD_PROJECT_ID}-vpc"
 export TF_VAR_subnet_name="${GCLOUD_PROJECT_ID}-subnet"
 export TF_VAR_firewall_name="${GCLOUD_PROJECT_ID}-firewall"
