@@ -34,7 +34,11 @@ jobs:
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
-            terraform apply -auto-approve
+            if [[ "$(git log --format=oneline -n 1 ${CIRCLE_SHA1} | grep -E "\[tf-destroy\]")" ]]; then
+              terraform destroy
+            else
+              terraform apply -auto-approve
+            fi
 
   GCP_Provisioning_Integracao:
     working_directory: /root/app
@@ -52,7 +56,11 @@ jobs:
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
-            terraform apply -auto-approve
+            if [[ "$(git log --format=oneline -n 1 ${CIRCLE_SHA1} | grep -E "\[tf-destroy\]")" ]]; then
+              terraform destroy
+            else
+              terraform apply -auto-approve
+            fi
 
   GCP_Provisioning_Desenvolvimento:
     working_directory: /root/app
@@ -70,7 +78,11 @@ jobs:
             cd ./cloud/terraform
             terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
             terraform plan
-            terraform apply -auto-approve
+            if [[ "$(git log --format=oneline -n 1 ${CIRCLE_SHA1} | grep -E "\[tf-destroy\]")" ]]; then
+              terraform destroy
+            else
+              terraform apply -auto-approve
+            fi
           
 workflows:
   version: 2.1
