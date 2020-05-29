@@ -28,7 +28,7 @@ jobs:
           name: "Provisionar infraestrutura PROD"
           command: |
           
-            source ./.circleci/ambientes/prod.sh
+            source ./.circleci/vars-ambientes/prod.sh
             
             echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
@@ -50,7 +50,7 @@ jobs:
           name: "Provisionar infraestrutura INT"
           command: |
           
-            source ./.circleci/ambientes/int.sh
+            source ./.circleci/vars-ambientes/int.sh
             
             echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
@@ -72,7 +72,7 @@ jobs:
           name: "Provisionar infraestrutura DEV"
           command: |
           
-            source ./.circleci/ambientes/dev.sh
+            source ./.circleci/vars-ambientes/dev.sh
             
             echo ${DEV_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
