@@ -81,8 +81,10 @@ jobs:
       - run:
           name: "Provisionar infraestrutura DEV"
           command: |
+
+            git diff --dirstat=files,0 HEAD~1
           
-            source ./.circleci/vars-ambientes/dev.sh
+            source ./.circleci/vars-ambientes/dev1.sh
             
             echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
             cd ./cloud/terraform
