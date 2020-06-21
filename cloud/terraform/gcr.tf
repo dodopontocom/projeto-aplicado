@@ -7,5 +7,4 @@ resource "google_storage_bucket_iam_member" "viewer" {
   bucket = google_container_registry.registry.id
   role = "roles/storage.objectCreator"
   member = "serviceAccount:var.devops_sa_email"
-  }
 }
