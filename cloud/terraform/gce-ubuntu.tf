@@ -40,3 +40,12 @@ resource "google_compute_instance" "instance" {
   // Permitir que IPs externos a network ecessem a VM
   tags = ["http-server", "https-server"]
 }
+
+
+
+
+
+
+
+
+
