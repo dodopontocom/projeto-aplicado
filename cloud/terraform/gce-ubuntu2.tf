@@ -1,13 +1,13 @@
-resource "random_id" "instance_id_windows" {
+resource "random_id" "instance_id_2" {
   byte_length = 3
 }
 
-resource "google_compute_address" "windows-static_ip_address" {
-  name = "windows-static-ip-address"
+resource "google_compute_address" "2-static_ip_address" {
+  name = "2-static-ip-address"
 }
 
-resource "google_compute_instance" "instance_windows" {
-  name         = "vm-tf-${random_id.instance_id_windows.hex}"
+resource "google_compute_instance" "instance_2" {
+  name         = "vm-tf-${random_id.instance_id_2.hex}"
   machine_type = var.machine_type
   depends_on  = [google_compute_subnetwork.subnet]
   zone         = var.zone
@@ -18,7 +18,7 @@ resource "google_compute_instance" "instance_windows" {
     
   boot_disk {
     initialize_params {
-      image = var.windows_image
+      image = var.ubuntu_image
     }
   }
   
