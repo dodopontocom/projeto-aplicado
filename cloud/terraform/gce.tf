@@ -18,7 +18,7 @@ resource "google_compute_instance" "instance" {
     
   boot_disk {
     initialize_params {
-      image = var.ubuntu_image
+      image = var.windows_image
     }
   }
   
