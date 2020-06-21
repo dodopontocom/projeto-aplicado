@@ -13,5 +13,4 @@ variable "machine_type" { }
 variable "zone" { }
 variable "compute_instance_environment" { }
 variable "ubuntu_image" { }
-variable "windows_image" { }
 variable "devops_sa_email" { }
