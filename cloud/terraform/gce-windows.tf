@@ -3,7 +3,7 @@ resource "random_id" "instance_id" {
 }
 
 resource "google_compute_address" "static_ip_address" {
-  name = "static-ip-address"
+  name = "windows-static-ip-address"
 }
 
 resource "google_compute_instance" "instance" {
