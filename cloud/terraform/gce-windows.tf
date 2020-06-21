@@ -2,7 +2,7 @@ resource "random_id" "instance_id_windows" {
   byte_length = 3
 }
 
-resource "google_compute_address" "static_ip_address" {
+resource "google_compute_address" "windows-static_ip_address" {
   name = "windows-static-ip-address"
 }
 
