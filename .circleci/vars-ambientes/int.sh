@@ -1,9 +1,9 @@
 #!/bin/bash
 # GCLOUD VARIAVEIS GLOBAIS
-export GCLOUD_PROJECT_ID="continual-voice-276914"
+export GCLOUD_PROJECT_ID="pa-igti"
 export GCLOUD_JSON_KEY_PATH="${CIRCLE_WORKING_DIRECTORY}/cloud/credentials/credential.json"
 export GOOGLE_APPLICATION_CREDENTIALS="${GCLOUD_JSON_KEY_PATH}"
-export GCLOUD_PROJECT_BUCKET_NAME="tf-bkend"
+export GCLOUD_PROJECT_BUCKET_NAME="terraform-backend-bucket"
 export GCLOUD_PROJECT_BUCKET_PREFIX="terraform"
 export GCLOUD_PROJECT_REGION="us-central1"
 export GCLOUD_SA_NAME="devops-sa"
