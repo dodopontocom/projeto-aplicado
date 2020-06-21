@@ -1,10 +1,11 @@
 resource "random_id" "instance_id_2" {
   byte_length = 3
 }
-
+/*
 resource "google_compute_address" "static_ip_address-2" {
   name = "static-ip-address-2"
 }
+*/
 
 resource "google_compute_instance" "instance_2" {
   name         = "vm-tf-${random_id.instance_id_2.hex}"
