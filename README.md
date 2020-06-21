@@ -19,7 +19,8 @@ cloud
 ├── terraform
 │    ├── apis.tf
 │    ├── backend.tf
-│    ├── gce.tf
+│    ├── gce-ubuntu.tf
+│    ├── gcr.tf
 │    ├── output.tf
 │    ├── provider.tf
 │    ├── terraform.tfvars
