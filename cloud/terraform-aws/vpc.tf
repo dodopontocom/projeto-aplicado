@@ -1,32 +1,25 @@
-//Criar Virtual Private Cloud
-resource "google_compute_network" "vpc" {
-    name                    = var.vpc_name
-    auto_create_subnetworks = false
+resource "aws_vpc" "vpc" {
+  cidr_block = var.aws_cidr_block
+  tags = {
+    Name = "dev-vpc"
+  }
 }
 
-//Criar subnets
-resource "google_compute_subnetwork" "subnet" {
-    name            = var.subnet_name
-    ip_cidr_range   = var.subnet_cidr
-    network         = var.vpc_name
-    depends_on      = [google_compute_network.vpc]
-    region          = var.region
+resource "aws_subnet" "subnet" {
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = var.aws_subnet_cidr_block
+  availability_zone = var.aws_aval_zone
+
+  tags = {
+    Name = "dev-vpc"
+  }
 }
 
-//Criar regra de firewall
-resource "google_compute_firewall" "firewall" {
-    name        = var.firewall_name
-    network     = google_compute_network.vpc.name
-    depends_on  = [google_compute_subnetwork.subnet]
+resource "aws_network_interface" "dev-network-interface" {
+  subnet_id   = aws_subnet.subnet.id
+  private_ips = ["172.16.10.100"]
 
-    allow {
-        protocol    = "icmp"
-    }
-    allow {
-        protocol    = "tcp"
-        ports       = ["22"]
-    }
-
-    source_ranges   = ["0.0.0.0/0"]
-    //target_tags   = ["http-server", "https-server"]
+  tags = {
+    Name = "dev_network_interface"
+  }
 }

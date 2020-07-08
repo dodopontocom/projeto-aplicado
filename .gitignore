@@ -1,1 +1,10 @@
 credential*.json
+  
+# Local .terraform directories
+**/.terraform/*
+cloud/terraform-aws/.terraform*
+
+
+# .tfstate files
+*.tfstate
+*.tfstate.*

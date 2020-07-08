@@ -1,16 +1,8 @@
-variable "project_id" { }
-variable "region" { }
-variable "key" { }
-variable "vpc_name" { }
-variable "tf_backend_bucket_name" { }
-variable "service_list" {
-  type  = list
-}
-variable "subnet_name" { }
-variable "subnet_cidr" { }
-variable "firewall_name" { }
-variable "machine_type" { }
-variable "zone" { }
-variable "compute_instance_environment" { }
-variable "ubuntu_image" { }
-variable "devops_sa_email" { }
+variable "aws_ubuntu_ami_id" { }
+variable "aws_instance_type" { }
+variable "aws_aval_zone" { }
+variable "aws_cidr_block" { }
+variable "aws_subnet_cidr_block" { }
+variable "aws_region" { }
+variable "aws_bucket_name" { }
+variable "aws_bucket_key" { }
