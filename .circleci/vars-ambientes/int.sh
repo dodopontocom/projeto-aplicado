@@ -32,7 +32,7 @@ export aws_subnet_cidr_block="172.16.0.0/16"
 export aws_bucket_name="projeto-aplicado"
 export aws_bucket_key="terraform"
 # VARIAVEIS do Terraform-aws
-export TF_VAR_aws_ubuntu_ami_id="${ubuntu_aws_ami_id}"
+export TF_VAR_aws_ubuntu_ami_id="${aws_ubuntu_ami_id}"
 export TF_VAR_aws_instance_type="${aws_instance_type}"
 export TF_VAR_aws_aval_zone="${aws_aval_zone}"
 export TF_VAR_aws_cidr_block="${aws_cidr_block}"
