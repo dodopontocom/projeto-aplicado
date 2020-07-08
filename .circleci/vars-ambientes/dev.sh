@@ -1,9 +1,9 @@
 #!/bin/bash
 # GCLOUD VARIAVEIS GLOBAIS
-export GCLOUD_PROJECT_ID="continual-voice-276914"
+export GCLOUD_PROJECT_ID="pa-igti"
 export GCLOUD_JSON_KEY_PATH="${CIRCLE_WORKING_DIRECTORY}/cloud/credentials/credential.json"
 export GOOGLE_APPLICATION_CREDENTIALS="${GCLOUD_JSON_KEY_PATH}"
-export GCLOUD_PROJECT_BUCKET_NAME="tf-bkend"
+export GCLOUD_PROJECT_BUCKET_NAME="terraform-backend-bucket"
 export GCLOUD_PROJECT_BUCKET_PREFIX="terraform"
 export GCLOUD_PROJECT_REGION="us-central1"
 export GCLOUD_SA_NAME="devops-sa"
@@ -21,3 +21,4 @@ export TF_VAR_machine_type="n1-standard-4"
 export TF_VAR_zone="${GCLOUD_PROJECT_REGION}-a"
 export TF_VAR_compute_instance_environment="dev"
 export TF_VAR_ubuntu_image="ubuntu-os-cloud/ubuntu-1804-lts"
+export TF_VAR_devops_sa_email="${GCLOUD_SA_EMAIL}"
