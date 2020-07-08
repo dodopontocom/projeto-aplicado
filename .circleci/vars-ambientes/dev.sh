@@ -23,8 +23,6 @@ export TF_VAR_compute_instance_environment="dev"
 export TF_VAR_ubuntu_image="ubuntu-os-cloud/ubuntu-1804-lts"
 export TF_VAR_devops_sa_email="${GCLOUD_SA_EMAIL}"
 #AWS VARIAVEIS GLOBAIS
-#export AWS_ACCESS_KEY_ID="AKIAXJUGBVMZA2XLC5VC"
-#export AWS_SECRET_ACCESS_KEY="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"
 export AWS_REGION="us-east-2"
 export aws_ubuntu_ami_id="ami-013de1b045799b282"
 export aws_instance_type="t2.micro"
