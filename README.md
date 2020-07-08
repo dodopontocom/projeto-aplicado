@@ -27,9 +27,9 @@ cloud
 │    ├── variables.tf
 │    └── vpc.tf
 ├── terraform-aws
-│    ├── backend.tf
 │    ├── ec2.tf
 │    ├── vpc.tf
+│    ├── backend.tf
 │    └── variables.tf
 app
 ```
