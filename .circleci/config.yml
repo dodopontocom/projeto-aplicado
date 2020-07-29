@@ -18,14 +18,14 @@ ambiente-desenvolvimento: &ambiente-desenvolvimento
           - develop
 
 jobs:
-  GCP_Provisioning:
+  Provisionamento:
     working_directory: /root/app
     docker:
       - image: hashicorp/terraform:light
     steps:
       - checkout
       - run:
-          name: "Provisionar infraestrutura PROD"
+          name: "Provisionar infraestrutura em PROD"
           command: |
           
             source ./.circleci/vars-ambientes/prod.sh
@@ -65,14 +65,14 @@ jobs:
               terraform apply -auto-approve
             fi
 
-  GCP_Provisioning_Integracao:
+  Provisionamento_Integracao:
     working_directory: /root/app
     docker:
       - image: hashicorp/terraform:full
     steps:
       - checkout
       - run:
-          name: "Provisionar infraestrutura INT"
+          name: "Provisionar infraestrutura em INT"
           command: |
           
             source ./.circleci/vars-ambientes/int.sh
@@ -112,14 +112,14 @@ jobs:
               terraform apply -auto-approve
             fi
 
-  GCP_Provisioning_Desenvolvimento:
+  Provisionamento_Desenvolvimento:
     working_directory: /root/app
     docker:
       - image: hashicorp/terraform:full
     steps:
       - checkout
       - run:
-          name: "Provisionar infraestrutura DEV"
+          name: "Provisionar infraestrutura em DEV"
           command: |
           
             source ./.circleci/vars-ambientes/dev.sh
@@ -162,11 +162,11 @@ jobs:
 workflows:
   version: 2.1
   
-  gcloud_workflow:
+  cloud_workflow:
     jobs:
-      - GCP_Provisioning:
+      - Provisionamento:
           <<: *ambiente-producao
-      - GCP_Provisioning_Integracao:
+      - Provisionamento_Integracao:
           <<: *ambiente-integracao
-      - GCP_Provisioning_Desenvolvimento:
+      - Provisionamento_Desenvolvimento:
           <<: *ambiente-desenvolvimento
