@@ -29,39 +29,39 @@ jobs:
           
             source ./.circleci/vars-ambientes/prod.sh
             
-            echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
-            cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-            terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
-
-            cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-            terraform init -backend-config="bucket=${aws_bucket_name}" -backend-config="key=${aws_bucket_key}"
-            
             commit_message="$(git log --format=oneline -n 1 ${CIRCLE_SHA1})"
-            
-            if [[ "$(echo ${commit_message} | grep -E "\[gcp-destroy\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-              terraform plan
-              terraform destroy -auto-approve
-            elif [[ "$(echo ${commit_message} | grep -E "\[gcp-plan\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-              terraform plan
-            elif [[ "$(echo ${commit_message} | grep -E "\[gcp-apply\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-              terraform plan
-              terraform apply -auto-approve
-            fi
-
-            if [[ "$(echo ${commit_message} | grep -E "\[aws-destroy\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-              terraform plan
-              terraform destroy -auto-approve
-            elif [[ "$(echo ${commit_message} | grep -E "\[aws-plan\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-              terraform plan
-            elif [[ "$(echo ${commit_message} | grep -E "\[aws-apply\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-              terraform plan
-              terraform apply -auto-approve
+            if [[ "$(echo ${commit_message} | grep -E "\[gcp-")" ]]; then
+                echo ${GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
+                cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
+                terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
+                
+                if [[ "$(echo ${commit_message} | grep -E "\[gcp-destroy\]")" ]]; then
+                  terraform plan
+                  terraform destroy -auto-approve
+                elif [[ "$(echo ${commit_message} | grep -E "\[gcp-plan\]")" ]]; then
+                  terraform plan
+                elif [[ "$(echo ${commit_message} | grep -E "\[gcp-apply\]")" ]]; then
+                  terraform plan
+                  terraform apply -auto-approve
+                fi
+                
+            elif [[ "$(echo ${commit_message} | grep -E "\[aws-")" ]]; then
+                cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                terraform init -backend-config="bucket=${aws_bucket_name}" -backend-config="key=${aws_bucket_key}"
+                if [[ "$(echo ${commit_message} | grep -E "\[aws-destroy\]")" ]]; then
+                  cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                  terraform plan
+                  terraform destroy -auto-approve
+                elif [[ "$(echo ${commit_message} | grep -E "\[aws-plan\]")" ]]; then
+                  cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                  terraform plan
+                elif [[ "$(echo ${commit_message} | grep -E "\[aws-apply\]")" ]]; then
+                  cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                  terraform plan
+                  terraform apply -auto-approve
+                fi
+            else
+                echo "Nenhum provisionamento para ser executado..."
             fi
 
   Provisionamento_Integracao:
@@ -76,39 +76,39 @@ jobs:
           
             source ./.circleci/vars-ambientes/int.sh
             
-            echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
-            cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-            terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
-
-            cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-            terraform init -backend-config="bucket=${aws_bucket_name}" -backend-config="key=${aws_bucket_key}"
-            
             commit_message="$(git log --format=oneline -n 1 ${CIRCLE_SHA1})"
-            
-            if [[ "$(echo ${commit_message} | grep -E "\[gcp-destroy\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-              terraform plan
-              terraform destroy -auto-approve
-            elif [[ "$(echo ${commit_message} | grep -E "\[gcp-plan\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-              terraform plan
-            elif [[ "$(echo ${commit_message} | grep -E "\[gcp-apply\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-              terraform plan
-              terraform apply -auto-approve
-            fi
-
-            if [[ "$(echo ${commit_message} | grep -E "\[aws-destroy\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-              terraform plan
-              terraform destroy -auto-approve
-            elif [[ "$(echo ${commit_message} | grep -E "\[aws-plan\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-              terraform plan
-            elif [[ "$(echo ${commit_message} | grep -E "\[aws-apply\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-              terraform plan
-              terraform apply -auto-approve
+            if [[ "$(echo ${commit_message} | grep -E "\[gcp-")" ]]; then
+                echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
+                cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
+                terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
+                
+                if [[ "$(echo ${commit_message} | grep -E "\[gcp-destroy\]")" ]]; then
+                  terraform plan
+                  terraform destroy -auto-approve
+                elif [[ "$(echo ${commit_message} | grep -E "\[gcp-plan\]")" ]]; then
+                  terraform plan
+                elif [[ "$(echo ${commit_message} | grep -E "\[gcp-apply\]")" ]]; then
+                  terraform plan
+                  terraform apply -auto-approve
+                fi
+                
+            elif [[ "$(echo ${commit_message} | grep -E "\[aws-")" ]]; then
+                cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                terraform init -backend-config="bucket=${aws_bucket_name}" -backend-config="key=${aws_bucket_key}"
+                if [[ "$(echo ${commit_message} | grep -E "\[aws-destroy\]")" ]]; then
+                  cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                  terraform plan
+                  terraform destroy -auto-approve
+                elif [[ "$(echo ${commit_message} | grep -E "\[aws-plan\]")" ]]; then
+                  cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                  terraform plan
+                elif [[ "$(echo ${commit_message} | grep -E "\[aws-apply\]")" ]]; then
+                  cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                  terraform plan
+                  terraform apply -auto-approve
+                fi
+            else
+                echo "Nenhum provisionamento para ser executado..."
             fi
 
   Provisionamento_Desenvolvimento:
@@ -123,39 +123,39 @@ jobs:
           
             source ./.circleci/vars-ambientes/dev.sh
             
-            echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
-            cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-            terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
-
-            cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-            terraform init -backend-config="bucket=${aws_bucket_name}" -backend-config="key=${aws_bucket_key}"
-            
             commit_message="$(git log --format=oneline -n 1 ${CIRCLE_SHA1})"
-            
-            if [[ "$(echo ${commit_message} | grep -E "\[gcp-destroy\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-              terraform plan
-              terraform destroy -auto-approve
-            elif [[ "$(echo ${commit_message} | grep -E "\[gcp-plan\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-              terraform plan
-            elif [[ "$(echo ${commit_message} | grep -E "\[gcp-apply\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
-              terraform plan
-              terraform apply -auto-approve
-            fi
-
-            if [[ "$(echo ${commit_message} | grep -E "\[aws-destroy\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-              terraform plan
-              terraform destroy -auto-approve
-            elif [[ "$(echo ${commit_message} | grep -E "\[aws-plan\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-              terraform plan
-            elif [[ "$(echo ${commit_message} | grep -E "\[aws-apply\]")" ]]; then
-              cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
-              terraform plan
-              terraform apply -auto-approve
+            if [[ "$(echo ${commit_message} | grep -E "\[gcp-")" ]]; then
+                echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
+                cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-gcp
+                terraform init -backend-config="bucket=${GCLOUD_PROJECT_BUCKET_NAME}" -backend-config="prefix=${GCLOUD_PROJECT_BUCKET_PREFIX}"
+                
+                if [[ "$(echo ${commit_message} | grep -E "\[gcp-destroy\]")" ]]; then
+                  terraform plan
+                  terraform destroy -auto-approve
+                elif [[ "$(echo ${commit_message} | grep -E "\[gcp-plan\]")" ]]; then
+                  terraform plan
+                elif [[ "$(echo ${commit_message} | grep -E "\[gcp-apply\]")" ]]; then
+                  terraform plan
+                  terraform apply -auto-approve
+                fi
+                
+            elif [[ "$(echo ${commit_message} | grep -E "\[aws-")" ]]; then
+                cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                terraform init -backend-config="bucket=${aws_bucket_name}" -backend-config="key=${aws_bucket_key}"
+                if [[ "$(echo ${commit_message} | grep -E "\[aws-destroy\]")" ]]; then
+                  cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                  terraform plan
+                  terraform destroy -auto-approve
+                elif [[ "$(echo ${commit_message} | grep -E "\[aws-plan\]")" ]]; then
+                  cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                  terraform plan
+                elif [[ "$(echo ${commit_message} | grep -E "\[aws-apply\]")" ]]; then
+                  cd ${CIRCLE_WORKING_DIRECTORY}/cloud/terraform-aws
+                  terraform plan
+                  terraform apply -auto-approve
+                fi
+            else
+                echo "Nenhum provisionamento para ser executado..."
             fi
           
 workflows:
