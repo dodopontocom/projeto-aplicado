@@ -1,5 +1,4 @@
 version: 2.1
-
 ambiente-producao: &ambiente-producao
     filters:
       branches:
