@@ -2,7 +2,7 @@
 
 # Instalar e configurar o servidor openldap
 
-export LDAP_ADMIN_PASS=$(curl -H "Metadata-Flavor: Google" http://metadata/computeMetadata/v1/instance/attributes/LDAP_ADMIN_PASS)
+export LDAP_ADMIN_PASS="$(curl -H "Metadata-Flavor: Google" http://metadata/computeMetadata/v1/instance/attributes/LDAP_ADMIN_PASS)"
 
 yum update -y
 yum install openldap openldap-clients openldap-servers -y
