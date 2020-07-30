@@ -1,4 +1,5 @@
 # Projeto Aplicado
+
 Repositório para manter o código referente ao meu projeto aplicado
 
 ## Badge para avisos do status das builds no CircleCi
@@ -16,7 +17,7 @@ Repositório para manter o código referente ao meu projeto aplicado
 └── config.yml
 cloud
 ├── credentials
-├── terraform
+├── terraform-gcp
 │    ├── apis.tf
 │    ├── backend.tf
 │    ├── gce-ubuntu.tf
