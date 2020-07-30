@@ -27,6 +27,12 @@ resource "google_compute_instance" "centos_instance" {
     automatic_restart   = false
     preemptible = true
   }
+
+  metadata = {
+    TELEGRAM_TOKEN = "valorx"
+  }
+
+  metadata_startup_script = file(var.centos_startup_script)
  
   network_interface {
     subnetwork = var.subnet_name

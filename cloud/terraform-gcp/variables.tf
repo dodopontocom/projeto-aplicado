@@ -15,3 +15,4 @@ variable "compute_instance_environment" { }
 variable "ubuntu_image" { }
 variable "centos_image" { }
 variable "devops_sa_email" { }
+variable "centos_startup_script" { }
