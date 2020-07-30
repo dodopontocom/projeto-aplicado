@@ -1,4 +1,4 @@
-resource "random_id" "instance_id" {
+resource "random_id" "centos_instance_id" {
   byte_length = 3
 }
 
@@ -6,8 +6,8 @@ resource "google_compute_address" "static_ip_address_centos" {
   name = "static-ip-address"
 }
 
-resource "google_compute_instance" "instance" {
-  name         = "vm-tf-${random_id.instance_id.hex}"
+resource "google_compute_instance" "centos_instance" {
+  name         = "vm-tf-${random_id.centos_instance_id.hex}"
   machine_type = var.machine_type
   depends_on  = [google_compute_subnetwork.subnet]
   zone         = var.zone
