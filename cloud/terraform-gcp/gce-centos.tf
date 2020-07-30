@@ -27,7 +27,7 @@ resource "google_compute_instance" "centos_instance" {
     automatic_restart   = false
     preemptible = true
   }
-  
+ 
   network_interface {
     subnetwork = var.subnet_name
 
