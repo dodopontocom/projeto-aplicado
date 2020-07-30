@@ -21,6 +21,7 @@ export TF_VAR_machine_type="n1-standard-4"
 export TF_VAR_zone="${GCLOUD_PROJECT_REGION}-a"
 export TF_VAR_compute_instance_environment="dev"
 export TF_VAR_ubuntu_image="ubuntu-os-cloud/ubuntu-1804-lts"
+export TF_VAR_centos_image="centos-cloud/centos-7"
 export TF_VAR_devops_sa_email="${GCLOUD_SA_EMAIL}"
 #AWS VARIAVEIS GLOBAIS
 export AWS_REGION="us-east-2"
