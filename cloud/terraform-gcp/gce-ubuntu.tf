@@ -3,7 +3,7 @@ resource "random_id" "ubuntu_instance_id" {
 }
 
 resource "google_compute_address" "static_ip_address_ubuntu" {
-  name = "static-ip-address"
+  name = "ubuntu-static-ip-address"
 }
 
 resource "google_compute_instance" "ubuntu_instance" {

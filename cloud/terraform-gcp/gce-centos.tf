@@ -3,7 +3,7 @@ resource "random_id" "centos_instance_id" {
 }
 
 resource "google_compute_address" "static_ip_address_centos" {
-  name = "static-ip-address"
+  name = "centos-static-ip-address"
 }
 
 resource "google_compute_instance" "centos_instance" {
