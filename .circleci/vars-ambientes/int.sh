@@ -5,7 +5,7 @@ export GCLOUD_JSON_KEY_PATH="${CIRCLE_WORKING_DIRECTORY}/cloud/credentials/crede
 export GOOGLE_APPLICATION_CREDENTIALS="${GCLOUD_JSON_KEY_PATH}"
 export GCLOUD_PROJECT_BUCKET_NAME="terraform-backend-bucket"
 export GCLOUD_PROJECT_BUCKET_PREFIX="terraform"
-export GCLOUD_PROJECT_REGION="us-central1"
+export GCLOUD_PROJECT_REGION="southamerica-east1"
 export GCLOUD_SA_NAME="devops-sa"
 export GCLOUD_SA_EMAIL="${GCLOUD_SA_NAME}@${GCLOUD_PROJECT_ID}.iam.gserviceaccount.com"
 # VARIAVEIS do Terraform-gcp
