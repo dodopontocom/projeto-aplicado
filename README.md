@@ -1,4 +1,4 @@
-# Projeto Aplicado
+# Projeto Aplicado (IGTI)
 
 Repositório para manter o código referente ao meu projeto aplicado
 
