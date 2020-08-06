@@ -83,7 +83,7 @@ gidNumber: 100
 homeDirectory: /home/ana
 loginShell: /bin/bash
 gecos: Ana [LDAP]
-userPassword: {crypt}x
+userPassword: ana@t3st
 _EOF
 
 ldapadd -x -w ${LDAP_ADMIN_PASS} -D "cn=ldapadmin,dc=paigti,dc=com" -f ${pasta_temp}/base.ldif

@@ -27,6 +27,8 @@ resource "google_compute_instance" "ubuntu_instance" {
     automatic_restart   = false
     preemptible = true
   }
+
+  metadata_startup_script = file(var.ubuntu_startup_script)
   
   network_interface {
     subnetwork = var.subnet_name
