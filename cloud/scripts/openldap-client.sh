@@ -10,6 +10,7 @@ apt-get install xrdp xfce4 -y
 service xrdp restart
 
 apt-get install ldap-client -y
+
 # apt-get install libpam-ldap libnss-ldap -y
 
 # cat << _EOF > /etc/nsswitch.conf
