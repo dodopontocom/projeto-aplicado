@@ -72,19 +72,33 @@ _EOF
 
 cat << _EOF > ${pasta_temp}/users.ldif
 
-dn: uid=ana,ou=TI,c=BR,dc=paigti,dc=com
+dn: uid=rodolfo,ou=TI,c=BR,dc=paigti,dc=com
 objectClass: top
 objectClass: account
 objectClass: posixAccount
 objectClass: shadowAccount
-cn: ana
-uid: ana
+cn: rodolfo
+uid: rodolfo
 uidNumber: 9999
 gidNumber: 100
-homeDirectory: /home/ana
+homeDirectory: /home/rodolfo
 loginShell: /bin/bash
-gecos: Ana [LDAP]
-userPassword: ana@t3st
+gecos: Rodolfo [LDAP]
+userPassword: rodolfo@t3st
+
+dn: uid=leandro,ou=TI,c=BR,dc=paigti,dc=com
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+cn: leandro
+uid: leandro
+uidNumber: 9998
+gidNumber: 100
+homeDirectory: /home/leandro
+loginShell: /bin/bash
+gecos: Leandro [LDAP]
+userPassword: leandro@t3st
 _EOF
 
 ldapadd -x -w ${LDAP_ADMIN_PASS} -D "cn=ldapadmin,dc=paigti,dc=com" -f ${pasta_temp}/base.ldif
