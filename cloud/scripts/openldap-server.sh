@@ -90,3 +90,4 @@ _EOF
 ldapadd -x -w ${LDAP_ADMIN_PASS} -D "cn=ldapadmin,dc=paigti,dc=com" -f ${pasta_temp}/base.ldif
 ldapadd -x -w ${LDAP_ADMIN_PASS} -D "cn=ldapadmin,dc=paigti,dc=com" -f ${pasta_temp}/users.ldif
 #ldappasswd -S -w ${LDAP_ADMIN_PASS} -D "cn=ldapadmin,dc=paigti,dc=com" -x "uid=ana,ou=TI,c=BR,dc=paigti,dc=com"
+
