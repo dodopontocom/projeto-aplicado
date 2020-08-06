@@ -60,4 +60,3 @@ pam_password md5
 _EOF
 
 service xrdp restart
-
