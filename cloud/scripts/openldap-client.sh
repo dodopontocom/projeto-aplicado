@@ -2,7 +2,7 @@
 
 # Instalar e configurar o client openldap e o RDP (xrdp)
 
-export DEBIAN_FRONTEND=noninteractive
+#export DEBIAN_FRONTEND=noninteractive
 # MINIMAL_APT_GET_INSTALL='apt-get install -y --no-install-recommends'
 
 apt-get update
@@ -53,7 +53,7 @@ _EOF
 
 cat << _EOF > /etc/ldap.conf
 base dc=paigti,dc=com
-uri ldap://10.10.0.3
+uri ldap://10.10.0.2
 ldap_version 3
 rootbinddn cn=ldapadmin,dc=paigti,dc=com
 pam_password md5
