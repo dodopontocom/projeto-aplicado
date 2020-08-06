@@ -46,3 +46,5 @@ resource "google_compute_instance" "centos_instance" {
   // Permitir que IPs externos a network ecessem a VM
   tags = ["http-server", "https-server"]
 }
+
+//https://www.terraform.io/docs/providers/google/r/compute_address.html
