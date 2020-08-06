@@ -99,6 +99,20 @@ homeDirectory: /home/leandro
 loginShell: /bin/bash
 gecos: Leandro [LDAP]
 userPassword: leandro@t3st
+
+dn: uid=test,ou=TI,c=BR,dc=paigti,dc=com
+objectClass: top
+objectClass: account
+objectClass: posixAccount
+objectClass: shadowAccount
+cn: test
+uid: test
+uidNumber: 9997
+gidNumber: 100
+homeDirectory: /home/test
+loginShell: /bin/bash
+gecos: Tester [LDAP]
+userPassword: test@t3st
 _EOF
 
 ldapadd -x -w ${LDAP_ADMIN_PASS} -D "cn=ldapadmin,dc=paigti,dc=com" -f ${pasta_temp}/base.ldif
