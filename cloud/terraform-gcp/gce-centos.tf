@@ -4,6 +4,10 @@ resource "random_id" "centos_instance_id" {
 
 resource "google_compute_address" "static_ip_address_centos" {
   name = "centos-static-ip-address"
+}
+
+resource "google_compute_address" "internal_centos" {
+  name = "centos-internal-ip-address"
   subnetwork   = var.subnet_name
   address_type = "INTERNAL"
   address      = "10.10.0.3"
