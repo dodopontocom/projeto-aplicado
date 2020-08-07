@@ -81,7 +81,7 @@ cn: rodolfo
 uid: rodolfo
 uidNumber: 9999
 gidNumber: 100
-homeDirectory: /home/rodolfo
+homeDirectory: /home-ldap/rodolfo
 loginShell: /bin/bash
 gecos: Rodolfo [LDAP]
 userPassword: rodolfo@t3st
@@ -95,7 +95,7 @@ cn: leandro
 uid: leandro
 uidNumber: 9998
 gidNumber: 100
-homeDirectory: /home/leandro
+homeDirectory: /home-ldap/leandro
 loginShell: /bin/bash
 gecos: Leandro [LDAP]
 userPassword: leandro@t3st
@@ -109,7 +109,7 @@ cn: test
 uid: test
 uidNumber: 9997
 gidNumber: 100
-homeDirectory: /home/test
+homeDirectory: /home-ldap/test
 loginShell: /bin/bash
 gecos: Tester [LDAP]
 userPassword: test@t3st

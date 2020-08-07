@@ -1,9 +1,25 @@
 #!/usr/bin/env bash
 
 # Instalar e configurar o client openldap e o RDP (xrdp)
-
 export DEBIAN_FRONTEND=noninteractive
 # MINIMAL_APT_GET_INSTALL='apt-get install -y --no-install-recommends'
+
+#Script para montar o ssd na pasta home
+#==============================================================================
+mount_point="/home-ldap"
+ssd_by_id="google-${TF_VAR_ssd_name}"
+
+[[ ! -d ${mount_point} ]] && sudo mkdir ${mount_point}
+sudo mount /dev/disk/by-id/${ssd_by_id} ${mount_point}
+if [[ $? -ne 0 ]]; then
+  sudo mkfs.ext4 -m 0 -F -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/disk/by-id/${ssd_by_id}
+  echo UUID=$(sudo blkid -s UUID -o value /dev/disk/by-id/${ssd_by_id}) ${mount_point} ext4 discard,defaults,nofail 0 2 | sudo tee -a /etc/fstab
+  sudo mount ${mount_point}
+else
+  echo UUID=$(sudo blkid -s UUID -o value /dev/disk/by-id/${ssd_by_id}) ${mount_point} ext4 discard,defaults,nofail 0 2 | sudo tee -a /etc/fstab
+  sudo mount ${mount_point}
+fi
+#==============================================================================
 
 apt-get update
 apt-get install xrdp xfce4 -y

@@ -18,3 +18,4 @@ variable "devops_sa_email" { }
 variable "centos_startup_script" { }
 variable "ldap_admin_pass" { }
 variable "ubuntu_startup_script" { }
+variable "ssd_name" { }

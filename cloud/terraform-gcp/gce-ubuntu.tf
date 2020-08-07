@@ -6,13 +6,13 @@ resource "google_compute_address" "static_ip_address_ubuntu" {
   name = "ubuntu-static-ip-address"
 }
 
-/*resource "google_compute_address" "internal_ubuntu" {
-  name = "ubuntu-internal-ip-address"
-  subnetwork   = var.subnet_name
-  address_type = "INTERNAL"
-  address      = "10.10.0.4"
-  region       = var.region
-}*/
+resource "google_compute_disk "home_mount_disk" {
+    name                        = var.ssd_name
+    type                        = "pd-ssd"
+    size                        = "10"
+    zone                        = var.zone
+    physical_block_size_bytes   = 4096
+}
 
 resource "google_compute_instance" "ubuntu_instance" {
   name         = "vm-tf-${random_id.ubuntu_instance_id.hex}"
@@ -22,6 +22,11 @@ resource "google_compute_instance" "ubuntu_instance" {
 
   labels       = {
     "env" = "${var.compute_instance_environment}"
+  }
+
+  attached_disk {
+      source        = google_compute_disk.home_mount_disk.name
+      device_name   = google_compute_disk.home_mount_disk.name
   }
 
   boot_disk {
