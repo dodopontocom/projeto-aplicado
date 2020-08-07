@@ -6,7 +6,7 @@ resource "google_compute_address" "static_ip_address_ubuntu" {
   name = "ubuntu-static-ip-address"
 }
 
-resource "google_compute_disk "home_mount_disk" {
+resource "google_compute_disk" "home_mount_disk" {
     name                        = var.ssd_name
     type                        = "pd-ssd"
     size                        = "10"
