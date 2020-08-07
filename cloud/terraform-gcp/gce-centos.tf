@@ -44,7 +44,7 @@ resource "google_compute_instance" "centos_instance" {
  
   network_interface {
     subnetwork = var.subnet_name
-    network_ip = 10.10.0.3
+    network_ip = "10.10.0.3"
 
     access_config {
       // Adicionar um IP externo para a VM

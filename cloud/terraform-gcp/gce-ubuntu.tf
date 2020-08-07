@@ -40,7 +40,7 @@ resource "google_compute_instance" "ubuntu_instance" {
 
   network_interface {
     subnetwork = var.subnet_name
-    network_ip = 10.10.0.4
+    network_ip = "10.10.0.4"
 
     access_config {
       // Adicionar um IP externo para a VM
