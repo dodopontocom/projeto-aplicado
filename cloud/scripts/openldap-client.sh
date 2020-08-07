@@ -10,6 +10,7 @@ apt-get install xrdp xfce4 -y
 
 apt-get install ldap-client -y
 apt-get install libpam-ldap libnss-ldap -y
+apt-get install chromium-browser -y
 
 cat << _EOF > /etc/nsswitch.conf
 passwd:         compat systemd ldap
