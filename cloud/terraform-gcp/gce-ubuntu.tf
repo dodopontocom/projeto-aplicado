@@ -6,13 +6,13 @@ resource "google_compute_address" "static_ip_address_ubuntu" {
   name = "ubuntu-static-ip-address"
 }
 
-resource "google_compute_address" "internal_ubuntu" {
+/*resource "google_compute_address" "internal_ubuntu" {
   name = "ubuntu-internal-ip-address"
   subnetwork   = var.subnet_name
   address_type = "INTERNAL"
   address      = "10.10.0.4"
   region       = var.region
-}
+}*/
 
 resource "google_compute_instance" "ubuntu_instance" {
   name         = "vm-tf-${random_id.ubuntu_instance_id.hex}"
@@ -23,13 +23,13 @@ resource "google_compute_instance" "ubuntu_instance" {
   labels       = {
     "env" = "${var.compute_instance_environment}"
   }
-    
+
   boot_disk {
     initialize_params {
       image = var.ubuntu_image
     }
   }
-  
+
   allow_stopping_for_update = true
   scheduling {
     automatic_restart   = false
@@ -37,9 +37,10 @@ resource "google_compute_instance" "ubuntu_instance" {
   }
 
   metadata_startup_script = file(var.ubuntu_startup_script)
-  
+
   network_interface {
     subnetwork = var.subnet_name
+    network_ip = 10.10.0.4
 
     access_config {
       // Adicionar um IP externo para a VM
