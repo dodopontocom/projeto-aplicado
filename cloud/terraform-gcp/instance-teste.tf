@@ -1,6 +1,6 @@
 resource "google_compute_address" "internal_with_subnet_and_address" {
   name         = "my-internal-address"
-  subnetwork   = var.subnet_name.id
+  subnetwork   = var.subnet_name
   address_type = "INTERNAL"
   address      = "10.10.0.9"
   region       = var.region
