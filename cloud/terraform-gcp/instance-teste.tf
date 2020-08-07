@@ -6,6 +6,10 @@ resource "google_compute_address" "internal_with_subnet_and_address" {
   region       = var.region
 }
 
+resource "google_compute_address" "ext-address" {
+  name         = "my-external-address"
+}
+
 resource "google_compute_instance" "instance3" {
   name         = "instance3"
   machine_type = var.machine_type
