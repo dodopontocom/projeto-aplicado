@@ -7,7 +7,8 @@ export DEBIAN_FRONTEND=noninteractive
 #Script para montar o ssd na pasta home
 #==============================================================================
 mount_point="/home-ldap"
-ssd_by_id="google-${TF_VAR_ssd_name}"
+#ssd_by_id="google-${TF_VAR_ssd_name}"
+ssd_by_id="google-ssd-disk-home"
 
 [[ ! -d ${mount_point} ]] && sudo mkdir ${mount_point}
 sudo mount /dev/disk/by-id/${ssd_by_id} ${mount_point}
