@@ -4,6 +4,10 @@ resource "random_id" "ubuntu_instance_id" {
 
 resource "google_compute_address" "static_ip_address_ubuntu" {
   name = "ubuntu-static-ip-address"
+  subnetwork   = var.subnet_name
+  address_type = "INTERNAL"
+  address      = "10.10.0.4"
+  region       = var.region
 }
 
 resource "google_compute_instance" "ubuntu_instance" {
