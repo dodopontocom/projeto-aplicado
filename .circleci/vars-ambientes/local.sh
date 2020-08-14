@@ -1,7 +1,6 @@
 #!/bin/bash
 # GCLOUD VARIAVEIS GLOBAIS
 export GCLOUD_PROJECT_ID="pa-igti"
-export GCLOUD_JSON_KEY_PATH="${CIRCLE_WORKING_DIRECTORY}/cloud/credentials/credential.json"
 export GCLOUD_JSON_KEY_PATH="/workspace/projeto-aplicado/cloud/credentials/credential.json"
 export GOOGLE_APPLICATION_CREDENTIALS="${GCLOUD_JSON_KEY_PATH}"
 export GCLOUD_PROJECT_BUCKET_NAME="terraform-backend-bucket"
@@ -24,8 +23,8 @@ export TF_VAR_devops_sa_email="${GCLOUD_SA_EMAIL}"
 export TF_VAR_compute_instance_environment="dev"
 export TF_VAR_ubuntu_image="ubuntu-os-cloud/ubuntu-1804-lts"
 export TF_VAR_centos_image="centos-cloud/centos-7"
-export TF_VAR_centos_startup_script="${CIRCLE_WORKING_DIRECTORY}/cloud/scripts/openldap-server.sh"
-export TF_VAR_ubuntu_startup_script="${CIRCLE_WORKING_DIRECTORY}/cloud/scripts/openldap-client.sh"
+export TF_VAR_centos_startup_script="/workspace/projeto-aplicado/cloud/scripts/openldap-server.sh"
+export TF_VAR_ubuntu_startup_script="/workspace/projeto-aplicado/cloud/scripts/openldap-client.sh"
 export TF_VAR_ssd_name="ssd-disk-home"
 #AWS VARIAVEIS GLOBAIS
 export AWS_REGION="us-east-2"

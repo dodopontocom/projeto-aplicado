@@ -6,13 +6,12 @@ resource "google_compute_address" "static_ip_address_ubuntu" {
   name = "ubuntu-static-ip-address"
 }
 
-resource "google_compute_disk" "home_mount_disk" {
-    name                        = var.ssd_name
-    type                        = "pd-ssd"
-    size                        = "10"
-    zone                        = var.zone
-    physical_block_size_bytes   = 4096
+module "disk" {
+    source  = "./modules/storages"
+    ssd_name    = var.ssd_name
+    zone    = var.zone
 }
+
 
 resource "google_compute_instance" "ubuntu_instance" {
   name         = "vm-tf-${random_id.ubuntu_instance_id.hex}"
@@ -25,8 +24,8 @@ resource "google_compute_instance" "ubuntu_instance" {
   }
 
   attached_disk {
-      source        = google_compute_disk.home_mount_disk.name
-      device_name   = google_compute_disk.home_mount_disk.name
+      source        = module.disk.my_ssd
+      device_name   = module.disk.my_ssd
   }
 
   boot_disk {
