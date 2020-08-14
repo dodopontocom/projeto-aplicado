@@ -28,10 +28,6 @@ resource "google_compute_instance" "centos_instance" {
     preemptible = true
   }
 
-  metadata = {
-    LDAP_ADMIN_PASS = var.ldap_admin_pass
-  }
-
   metadata_startup_script = file(var.centos_startup_script)
  
   network_interface {
