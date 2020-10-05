@@ -8,6 +8,13 @@ export GCLOUD_PROJECT_BUCKET_PREFIX="terraform"
 export GCLOUD_PROJECT_REGION="southamerica-east1"
 export GCLOUD_SA_NAME="devops-sa"
 export GCLOUD_SA_EMAIL="${GCLOUD_SA_NAME}@${GCLOUD_PROJECT_ID}.iam.gserviceaccount.com"
+
+export TF_VAR_MONGO_ATLAS_STRING="${MONGO_ATLAS_STRING}"
+export TF_VAR_JWT_KEY="${JWT_KEY}"
+
+export GCLOUD_STORAGE_BASE_URL="https://storage.cloud.google.com"
+export REF_IMOVEL_PREFIX="ref20"
+
 # VARIAVEIS do Terraform-gcp
 export TF_VAR_tf_backend_bucket_name="${GCLOUD_PROJECT_BUCKET_NAME}"
 export TF_VAR_project_id="${GCLOUD_PROJECT_ID}"
