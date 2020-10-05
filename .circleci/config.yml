@@ -169,6 +169,8 @@ jobs:
           command: |
           
             source ./.circleci/vars-ambientes/dev.sh
+
+            export
             
             commit_message="$(git log --format=oneline -n 1 ${CIRCLE_SHA1})"
             if [[ "$(echo ${commit_message} | grep -E "\[nodejs/]")" ]]; then
