@@ -11,7 +11,6 @@ export GCLOUD_SA_EMAIL="${GCLOUD_SA_NAME}@${GCLOUD_PROJECT_ID}.iam.gserviceaccou
 
 export TF_VAR_MONGO_ATLAS_STRING="${MONGO_ATLAS_STRING}"
 export TF_VAR_JWT_KEY="${JWT_KEY}"
-
 export GCLOUD_STORAGE_BASE_URL="https://storage.cloud.google.com"
 export REF_IMOVEL_PREFIX="ref20"
 
