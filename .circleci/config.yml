@@ -177,6 +177,7 @@ jobs:
             if [[ "$(echo ${commit_message} | grep -E "\[nodejs\]")" ]]; then
                 echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
                 APP_PATH="${CIRCLE_WORKING_DIRECTORY}/nodejs-app"
+                touch ${APP_PATH}/backend/keyfile.json
                 echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${APP_PATH}/backend/keyfile.json
 
                 GAE_DEPLOYMENT_VERSION="$(echo ${CIRCLE_BRANCH//\//-}-build-${CIRCLE_BUILD_NUM} | tr '[:upper:]' '[:lower:]')"
