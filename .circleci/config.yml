@@ -174,7 +174,7 @@ jobs:
             
             commit_message="$(git log --format=oneline -n 1 ${CIRCLE_SHA1})"
             echo "--------- ${commit_message}"
-            if [[ "$(echo ${commit_message} | grep -E "\[nodejs/]")" ]]; then
+            if [[ "$(echo ${commit_message} | grep -E "\[nodejs\]")" ]]; then
                 echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
                 APP_PATH="${CIRCLE_WORKING_DIRECTORY}/nodejs-app"
                 echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${APP_PATH}/backend/keyfile.json
