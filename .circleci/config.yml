@@ -184,6 +184,8 @@ jobs:
 
                 sed -i 's#GAE_DEPLOYMENT_VERSION#'${GAE_DEPLOYMENT_VERSION}# "${APP_PATH}/src/app/version/version.component.html"
 
+                gcloud auth activate-service-account --key-file="${GCLOUD_JSON_KEY_PATH}"
+
                 cd ${APP_PATH}
                 echo n | npm install
                 npm run build -- --configuration production
