@@ -203,10 +203,9 @@ jobs:
                 cd ${APP_PATH}/backend
                 gcloud --quiet app deploy "app.yaml" --version "${GAE_DEPLOYMENT_VERSION}"
 
-                #gcp.auth.revokeSA "${GOOGLE_APPLICATION_CREDENTIALS}"
-                #gcloud auth revoke "${GCLOUD_SA_EMAIL}"
+
                 rm -vfr "${GOOGLE_APPLICATION_CREDENTIALS}"
-                
+    
             else
                 echo "Nenhuma aplicação a ser atualizada..."
             fi
