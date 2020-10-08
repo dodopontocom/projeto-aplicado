@@ -13,6 +13,7 @@ export TF_VAR_MONGO_ATLAS_STRING="${MONGO_ATLAS_STRING}"
 export TF_VAR_JWT_KEY="${JWT_KEY}"
 export GCLOUD_STORAGE_BASE_URL="https://storage.cloud.google.com"
 export REF_IMOVEL_PREFIX="ref20"
+export GCLOUD_APP_BUCKET_NAME="projeto-aplicado-bucket"
 
 # VARIAVEIS do Terraform-gcp
 export TF_VAR_tf_backend_bucket_name="${GCLOUD_PROJECT_BUCKET_NAME}"
