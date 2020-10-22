@@ -46,6 +46,8 @@ As seguintes "flags" podem ser adicionadas (entre colchetes [ ]) em qualquer lug
 - `[aws-apply]` - Constroi a infraestrutura da Nuvem (provisiona os recursos listados na pasta do terraform)  
 - `[aws-destroy]` - Desconstroi a infraestrutura da Nuvem (ótimo para desligar todos os recursos e economizar)  
 
+- `[nodejs]` - Aplica o deployment da aplicação (nodejs) desenvolvida em node  
+
 - `[skip-docker]` - Faz com que execute o CircleCi mas pule a opção de atualizar a imagem docker da aplicação  
 - `[wip]` - (Working in progress) Executa apenas o passo de construir a aplicação (aqui, subintende que os recursos na Nuvem já estejam criados)
 
