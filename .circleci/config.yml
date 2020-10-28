@@ -46,8 +46,7 @@ jobs:
                 gsutil cp output.png gs://${GCLOUD_APP_BUCKET_NAME}/
                 gcloud alpha dlp text inspect --content-file="${EXECUCAO_PATH}/texto_cpf.txt" --info-types="BRAZIL_CPF_NUMBER" --min-likelihood="POSSIBLE"
                 
-                rm -vfr "${GOOGLE_APPLICATION_CREDENTIALS}"
-    
+                rm -vfr "${GOOGLE_APPLICATION_CREDENTIALS}"    
             else
                 echo "Nenhuma aplicação a ser atualizada..."
             fi
