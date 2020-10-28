@@ -1,0 +1,4 @@
+Este é um arquivo teste para ser executado no pipeline
+Serve para mostrar a execução do dlp (data loss prevention) que inspeciona por informações sensíveis dentro de arquivos no repositório
+
+342.219.168-26

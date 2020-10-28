@@ -17,6 +17,40 @@ ambiente-desenvolvimento: &ambiente-desenvolvimento
           - develop
 
 jobs:
+
+  Inspecao_Data_Loss_Prevention:
+    working_directory: /root/app
+      docker:
+        - image: google/cloud-sdk
+      steps:
+        - checkout
+        - run:
+            name: "Executar Inspeção de Data Loss Prevention"
+            command: |
+              source ./.circleci/vars-ambientes/dev.sh
+            
+              commit_message="$(git log --format=oneline -n 1 ${CIRCLE_SHA1})"
+              
+              if [[ "$(echo ${commit_message} | grep -E "\[dlp\]")" ]]; then
+
+                  apt-get install -y nodejs npm
+
+                  echo ${INT_GCLOUD_SERVICE_ACCOUNT} > ${GCLOUD_JSON_KEY_PATH}
+                  EXECUCAO_PATH="${CIRCLE_WORKING_DIRECTORY}/docs"
+                  gcloud auth activate-service-account --key-file="${GCLOUD_JSON_KEY_PATH}"
+                  gcloud config set project "${GCLOUD_PROJECT_ID}"
+                  gcloud config set gcloudignore/enabled false
+                  
+                  gcloud alpha dlp images redact ${EXECUCAO_PATH}/imgs/exame_medico.png --info-types="DATE" --min-likelihood="POSSIBLE" --output-file=output.png
+                  gsutil cp output.png gs://${GCLOUD_APP_BUCKET_NAME}/
+                  gcloud alpha dlp text inspect --content-file="${EXECUCAO_PATH}/texto_cpf.txt" --info-types="BRAZIL_CPF_NUMBER" --min-likelihood="POSSIBLE"
+                  
+                  rm -vfr "${GOOGLE_APPLICATION_CREDENTIALS}"
+      
+              else
+                  echo "Nenhuma aplicação a ser atualizada..."
+              fi
+
   Provisionamento:
     working_directory: /root/app
     docker:
@@ -214,6 +248,8 @@ workflows:
   version: 2.1  
   cloud_workflow:
     jobs:
+      - Inspecao_Data_Loss_Prevention:
+          <<: *ambiente-desenvolvimento
       - Provisionamento:
           <<: *ambiente-producao
       - Provisionamento_Integracao:
