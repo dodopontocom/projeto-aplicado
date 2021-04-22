@@ -67,7 +67,7 @@ jobs:
   Provisionamento_Integracao:
     working_directory: /root/app
     docker:
-      - image: hashicorp/terraform:full
+      - image: hashicorp/terraform:light
     steps:
       - checkout
       - run:
@@ -114,7 +114,7 @@ jobs:
   Provisionamento_Desenvolvimento:
     working_directory: /root/app
     docker:
-      - image: hashicorp/terraform:full
+      - image: hashicorp/terraform:light
     steps:
       - checkout
       - run:
